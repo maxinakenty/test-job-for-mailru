@@ -1,31 +1,27 @@
 const { join } = require('path');
 const webpack = require('webpack');
-const { cssModulesHash } = require('../package.json');
 
 const PATH = {
+  src: join(__dirname, '..', 'src'),
   postcssConfig: join(__dirname, 'postcss.config.js'),
 };
 
 module.exports = {
   mode: 'development',
+  context: PATH.src,
+  entry: [
+    'babel-polyfill',
+    'webpack-hot-middleware/client?reload=true',
+    './index.js',
+  ],
   output: {
     publicPath: '/',
-    filename: '[name].js',
-    chunkFilename: '[name].js',
+    filename: 'bundle.js',
   },
   devtool: 'eval',
   watch: true,
   watchOptions: {
     aggregateTimeout: 100,
-  },
-  devServer: {
-    overlay: true,
-    port: 3000,
-    hot: true,
-    stats: {
-      'errors-only': true,
-    },
-    historyApiFallback: true,
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -54,10 +50,6 @@ module.exports = {
             loader: 'css-loader',
             options: {
               sourceMap: true,
-              modules: true,
-              importLoaders: 2,
-              localIdentName: cssModulesHash,
-              minimize: false,
             },
           },
           'resolve-url-loader',
@@ -68,42 +60,6 @@ module.exports = {
               config: {
                 path: PATH.postcssConfig,
               },
-            },
-          },
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              modules: true,
-              importLoaders: 2,
-              localIdentName: cssModulesHash,
-              minimize: false,
-            },
-          },
-          'resolve-url-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true,
-              config: {
-                path: PATH.postcssConfig,
-              },
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-              modules: true,
-              importLoaders: 2,
-              localIdentName: cssModulesHash,
-              minimize: false,
             },
           },
         ],

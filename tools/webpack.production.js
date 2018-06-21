@@ -16,26 +16,13 @@ module.exports = {
   output: {
     path: PATH.public,
     publicPath: '/',
-    filename: 'js/[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js',
+    filename: 'js/bundle.[chunkhash].js',
   },
   performance: {
     hints: false,
   },
   watch: false,
   devtool: false,
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true,
-        },
-      },
-    },
-  },
   plugins: [
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify('production'),
@@ -45,7 +32,7 @@ module.exports = {
       path: PATH.public,
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/common.[contenthash].css',
+      filename: 'css/main.[contenthash].css',
     }),
   ],
   module: {
@@ -68,36 +55,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
-              modules: true,
-              importLoaders: 2,
-              localIdentName: cssModulesHash,
-              minimize: true,
-            },
-          },
-          'resolve-url-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true,
-              config: {
-                path: PATH.postcssConfig,
-              },
-            },
-          },
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
               sourceMap: false,
-              modules: true,
-              importLoaders: 2,
-              localIdentName: cssModulesHash,
               minimize: true,
             },
           },
@@ -109,16 +67,6 @@ module.exports = {
               config: {
                 path: PATH.postcssConfig,
               },
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: false,
-              modules: true,
-              importLoaders: 2,
-              localIdentName: cssModulesHash,
-              minimize: true,
             },
           },
         ],
