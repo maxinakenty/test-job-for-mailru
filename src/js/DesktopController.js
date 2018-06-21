@@ -1,8 +1,6 @@
-import io from 'socket.io-client';
+import socket from './common';
 
-const socket = io();
-
-class Controller {
+class DesktopController {
   static handleKeyDown = () => {
     document.body.addEventListener(
       'keydown',
@@ -34,4 +32,4 @@ class Controller {
   }
 }
 
-export default Controller;
+export default DesktopController;

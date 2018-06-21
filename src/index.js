@@ -1,11 +1,11 @@
 import io from 'socket.io-client';
-import Controller from './js/Controller';
+import DesktopController from './js/DesktopController';
 import './styles/main.css';
 
 const socket = io();
 const carElem = document.getElementById('car');
-const controller = new Controller();
-controller.init();
+const desktopController = new DesktopController();
+desktopController.init();
 
 socket.on('drive a car', direction => {
   const carStyle = getComputedStyle(carElem);
@@ -22,3 +22,11 @@ socket.on('drive a car', direction => {
 
   return false;
 });
+
+window.onload = () => {
+  const titleLinkElem = document.getElementById('title-link');
+  titleLinkElem.innerHTML = `${window.location.href.replace(
+    /http:\/\//,
+    '',
+  )}mobile`;
+};

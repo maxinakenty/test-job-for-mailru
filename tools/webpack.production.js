@@ -2,8 +2,7 @@
 const { join } = require('path');
 const webpack = require('webpack');
 const AssetsWebpackPlugin = require('assets-webpack-plugin');
-const { cssModulesHash } = require('../package.json');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ExtractCssPlugin = require('mini-css-extract-plugin');
 
 const PATH = {
   src: join(__dirname, '..', 'src'),
@@ -13,10 +12,16 @@ const PATH = {
 
 module.exports = {
   mode: 'production',
+  context: PATH.src,
+  entry: {
+    common: ['babel-polyfill', './js/common'],
+    home: './index.js',
+    mobile: './mobile.js',
+  },
   output: {
     path: PATH.public,
     publicPath: '/',
-    filename: 'js/bundle.[chunkhash].js',
+    filename: 'js/[name].[chunkhash].js',
   },
   performance: {
     hints: false,
@@ -31,8 +36,8 @@ module.exports = {
       filename: 'assets.json',
       path: PATH.public,
     }),
-    new MiniCssExtractPlugin({
-      filename: 'css/main.[contenthash].css',
+    new ExtractCssPlugin({
+      filename: 'css/common.[contenthash].css',
     }),
   ],
   module: {
@@ -51,7 +56,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          ExtractCssPlugin.loader,
           {
             loader: 'css-loader',
             options: {

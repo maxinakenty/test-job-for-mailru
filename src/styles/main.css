@@ -53,16 +53,44 @@ a:visited {
   left: 0;
   z-index: 1;
   background: transparent;
+  pointer-events: none;
 }
 
 .car {
   position: absolute;
   width: 300px;
   height: 150px;
-  background: url('car.png') no-repeat center center;
+  background: url('../img/car.png') no-repeat center center;
   background-size: cover;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   transition: all 0.3s ease;
+}
+
+.btn {
+  border: 1px solid transparent;
+  box-shadow: none;
+  size: 74px;
+  border-radius: 10px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn_top {
+  background: url('../img/btn_top.svg') no-repeat center center;
+}
+
+.btn_bottom {
+  background: url('../img/btn_bottom.svg') no-repeat center center;
+}
+
+.btn_left {
+  background: url('../img/btn_left.svg') no-repeat center center;
+}
+
+.btn_right {
+  background: url('../img/btn_right.svg') no-repeat center center;
 }

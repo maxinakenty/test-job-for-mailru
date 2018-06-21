@@ -17,7 +17,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Index',
       template: `${PATH.src}/index.html`,
+      chunks: ['common', 'home'],
       filename: 'index.html',
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Mobile Controller',
+      template: `${PATH.src}/mobile.html`,
+      chunks: ['common', 'mobile'],
+      filename: 'mobile.html',
     }),
   ],
   module: {

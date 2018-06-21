@@ -9,14 +9,18 @@ const PATH = {
 module.exports = {
   mode: 'development',
   context: PATH.src,
-  entry: [
-    'babel-polyfill',
-    'webpack-hot-middleware/client?reload=true',
-    './index.js',
-  ],
+  entry: {
+    common: [
+      'babel-polyfill',
+      'webpack-hot-middleware/client?reload=true',
+      './js/common',
+    ],
+    home: ['webpack-hot-middleware/client?reload=true', './index.js'],
+    mobile: ['webpack-hot-middleware/client?reload=true', './mobile.js'],
+  },
   output: {
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: '[name].js',
   },
   devtool: 'eval',
   watch: true,
