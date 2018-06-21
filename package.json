@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node server",
-    "dev": "cross-env nodemon server",
+    "start": "cross-env NODE_ENV=production node server.js",
+    "dev": "cross-env nodemon  NODE_ENV=development server.js",
     "build": "npm run clean && cross-env NODE_ENV=production webpack",
     "clean": "cross-env rimraf public",
     "demo": "npm run build && npm run start",
