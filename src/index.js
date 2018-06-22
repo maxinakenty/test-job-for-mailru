@@ -26,7 +26,7 @@ socket.on('drive a car', direction => {
 window.onload = () => {
   const titleLinkElem = document.getElementById('title-link');
   titleLinkElem.innerHTML = `${window.location.href.replace(
-    /http:\/\//,
+    /https?:\/\//,
     '',
   )}mobile`;
 };
